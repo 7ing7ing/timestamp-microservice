@@ -29,7 +29,7 @@ app.get("/api/:date?", function (req, res) {
     });
   } else {
     res.json({
-      unix: date,
+      unix: parseInt(date),
       utc: new Date(parseInt(date)).toUTCString(),
     });
   }
