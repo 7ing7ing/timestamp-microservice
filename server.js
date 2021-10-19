@@ -22,7 +22,13 @@ app.get("/", function (req, res) {
 app.get("/api/:date?", function (req, res) {
   const date = req.params.date;
 
-  if (isNaN(date)) {
+  if (!date) {
+    res.json({
+      unix: Date.parse(new Date()),
+      utc: new Date().toUTCString(),
+    });
+  } else if (isNaN(date)) {
+    //No es un número.
     const entryDate = new Date(date).toUTCString();
     const unixNumber = Date.parse(entryDate);
     if (isNaN(unixNumber)) {
@@ -40,6 +46,7 @@ app.get("/api/:date?", function (req, res) {
     const unixNumber = Date.parse(entryDate);
 
     if (!isNaN(unixNumber)) {
+      //Es un número.
       res.json({
         unix: unixNumber,
         utc: entryDate,
