@@ -22,16 +22,33 @@ app.get("/", function (req, res) {
 app.get("/api/:date?", function (req, res) {
   const date = req.params.date;
 
-  if (date.indexOf("-") !== -1) {
-    res.json({
-      unix: new Date(date).getTime(),
-      utc: new Date(date).toUTCString(),
-    });
+  if (isNaN(date)) {
+    const entryDate = new Date(date).toUTCString();
+    const unixNumber = Date.parse(entryDate);
+    if (isNaN(unixNumber)) {
+      res.json({
+        error: "Invalid Date",
+      });
+    } else {
+      res.json({
+        unix: unixNumber,
+        utc: entryDate,
+      });
+    }
   } else {
-    res.json({
-      unix: parseInt(date),
-      utc: new Date(parseInt(date)).toUTCString(),
-    });
+    const entryDate = new Date(parseInt(date)).toUTCString();
+    const unixNumber = Date.parse(entryDate);
+
+    if (!isNaN(unixNumber)) {
+      res.json({
+        unix: unixNumber,
+        utc: entryDate,
+      });
+    } else {
+      res.json({
+        error: "Invalid Date",
+      });
+    }
   }
 });
 
