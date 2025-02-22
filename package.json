@@ -2,9 +2,9 @@
 	"name": "fcc-api-projects-boilerplate",
 	"version": "0.0.1",
 	"description": "An FCC Backend Challenge",
-	"main": "server.js",
+	"main": "index.js",
 	"scripts": {
-		"start": "node server.js"
+		"start": "node api/index.js"
 	},
 	"dependencies": {
 		"cors": "^2.8.0",
